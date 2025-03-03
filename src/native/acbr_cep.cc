@@ -1,7 +1,6 @@
 #include "acbr_cep.h"
 #include <string>
 
-// Declarações das funções da ACBrLib (ajuste conforme a API real)
 extern "C" {
     int CEP_Inicializar(const char* config);
     int CEP_Finalizar();
