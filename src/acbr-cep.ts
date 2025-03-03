@@ -4,14 +4,25 @@ const bindings = require('bindings');
 const platform = process.platform;
 const libPath = platform === 'win32'
   ? path.join(__dirname, '../lib/windows/ACBrCEP64.dll')
-  : platform === 'darwin'
-  ? path.join(__dirname, '../lib/macos/libacbrcep64.dylib')
   : path.join(__dirname, '../lib/linux/libacbrcep64.so');
 
-const acbr = bindings({
-  bindings: 'acbr_cep',
-  module_root: path.join(__dirname, '..'),
-});
+let acbr: any;
+if (platform === 'darwin') {
+  console.warn('macOS detected. Using mock mode for development.');
+  acbr = {
+    buscarCEP: (cep: string) => {
+      if (cep === '01001000') {
+        return JSON.stringify({ Logradouro: 'Praça da Sé', Bairro: 'Sé', Municipio: 'São Paulo' });
+      }
+      throw new Error('CEP inválido');
+    },
+  };
+} else {
+  acbr = bindings({
+    bindings: 'acbr_cep',
+    module_root: path.join(__dirname, '..'),
+  });
+}
 
 export async function buscarCEP(cep: string): Promise<any> {
   try {

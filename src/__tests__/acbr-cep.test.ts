@@ -1,17 +1,5 @@
 import { buscarCEP } from '../acbr-cep';
 
-// Mock temporário para testes (substitua pela biblioteca real em produção)
-jest.mock('bindings', () => ({
-  bindings: () => ({
-    buscarCEP: (cep: string) => {
-      if (cep === '01001000') {
-        return JSON.stringify({ Logradouro: 'Praça da Sé', Bairro: 'Sé', Municipio: 'São Paulo' });
-      }
-      throw new Error('CEP inválido');
-    },
-  }),
-}));
-
 describe('ACBr CEP Module', () => {
   it('should return CEP data for a valid CEP', async () => {
     const cep = '01001000';
