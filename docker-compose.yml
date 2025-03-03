@@ -5,6 +5,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./lib:/app/lib
+      - ./lib/linux:/app/lib/linux
     environment:
       - NODE_ENV=production

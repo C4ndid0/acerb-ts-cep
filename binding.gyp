@@ -8,13 +8,13 @@
       "dependencies": ["<!(node -p \"require('node-addon-api').gyp\")"],
       "conditions": [
         ["OS=='win'", {
-          "libraries": ["-l../lib/windows/ACBrCEP64"]
+          "libraries": ["-L../lib/windows", "-lACBrCEP64"]
         }],
         ["OS=='linux'", {
-          "libraries": ["-l../lib/linux/acbrcep64"]
+          "libraries": ["-L../lib/linux", "-lacbrcep64"]
         }]
       ],
-      "cflags!": ["-fno-exceptions"],
+      "cflags": ["-Wall", "-std=c++17", "-D_GLIBCXX_USE_CXX11_ABI=0"],
       "cflags_cc!": ["-fno-exceptions"],
       "defines": ["NAPI_DISABLE_CPP_EXCEPTIONS"]
     }
